@@ -1,8 +1,8 @@
 from random import randint
 
 class Forca:
-    def __init__(self):
-        self.palavra = self.definir_palavra()           #palavra a ser sorteada
+    def __init__(self, lista: list()):
+        self.palavra = self.definir_palavra(lista)           #palavra a ser sorteada
         self.lista_palavra = list(self.palavra)         #lista que contém como elemento as letras da palavra
         self.lista_tracos = ["_"] * len(self.palavra)   #lista de traços
         self.chute = ""                                 #declarei a variavel do chute
@@ -10,9 +10,10 @@ class Forca:
         self.credito = 6                                #creditos
 
 
-    def definir_palavra(self):
-        lista = ["carro", "melancia", "escola", "elefante", "elevador", "alface", "computador", "telefone", "apartamento", "bermuda"]
-        return lista[randint(0, 9)]
+    def definir_palavra(self, lista: []):
+        #lista = ["carro", "melancia", "escola", "elefante", "elevador", "alface", "computador", "telefone", "apartamento", "bermuda"]
+
+        return lista[randint(0, (len(lista)-1))]
 
     def input_chute(self):
         while True:
@@ -33,7 +34,11 @@ class Forca:
             self.credito -= 1
             return True
         else:
+            if not (self.chute in self.lista_palavra):
+                self.credito -= 1
+
             self.lista_chutes.append(self.chute)
+
             return False
         
         
@@ -59,8 +64,6 @@ class Forca:
                 lista_palavra_copy.remove(self.chute)
                 self.lista_tracos[contador_letras_palavra] = self.chute
             contador_letras_palavra += 1
-
-        self.lista_palavra = lista_palavra_copy
 
         return self.lista_tracos
     
