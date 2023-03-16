@@ -63,6 +63,12 @@ class Forca:
         self.lista_palavra = lista_palavra_copy
 
         return self.lista_tracos
+    
+    def verifica_lista_tracos(self): # Retorna falso caso ainda exista letra nao descoberta, e verdadeiro caso o jogador tenha descoberto todas as letras da palavra
+        for elemento in self.lista_tracos:
+            if(elemento == '_'):
+                return False
+        return True
         
 
 
