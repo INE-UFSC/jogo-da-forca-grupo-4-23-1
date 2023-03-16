@@ -2,7 +2,8 @@ from random import randint
 
 class Forca:
     def __init__(self):
-        self.palavra = self.definir_palavra()           #palavra a ser sorteada 
+        self.palavra = self.definir_palavra()           #palavra a ser sorteada
+        self.lista_palavra = list(self.palavra)         #lista que contém como elemento as letras da palavra
         self.lista_tracos = ["_"] * len(self.palavra)   #lista de traços
         self.chute = ""                                 #declarei a variavel do chute
         self.lista_chutes = []                          #lista de chutes que vao ser chutado(ela tem o append na funçao 'input_chute()'
@@ -34,6 +35,39 @@ class Forca:
         else:
             self.lista_chutes.append(self.chute)
             return False
+        
+        
+    def imprime_palavra(self): # imprime a palavra 
+        str_palavra = ''
+        contador_letras_palavra = 0
+        for elemento in self.lista_tracos:
+            if(contador_letras_palavra != len(self.lista_tracos)-1):
+                str_palavra += elemento + ' '
+            else:
+                str_palavra += elemento
+
+            contador_letras_palavra += 1
+        return str_palavra
+    
+
+    def atualiza_lista_tracos(self): #atualiza a lista que contem os tracos, colocando no lugar a letra chutada pelo jogador, caso ela exista na palavra
+        lista_palavra_copy = self.lista_palavra.copy()
+
+        contador_letras_palavra = 0
+        for letra in self.lista_palavra:
+            if letra == self.chute:
+                lista_palavra_copy.remove(self.chute)
+                self.lista_tracos[contador_letras_palavra] = self.chute
+            contador_letras_palavra += 1
+
+        self.lista_palavra = lista_palavra_copy
+
+        return self.lista_tracos
+        
+
+
+
+
     
     
 
