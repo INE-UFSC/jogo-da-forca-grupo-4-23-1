@@ -1,5 +1,7 @@
-from controlador_lista import ControladorLista
-from lista import Lista
+from ControladorLista import ControladorLista
+from Lista import Lista
+from jogo_forca import Jogo
+import os
 class Sistema:
      def __init__(self):
           self._controlador = ControladorLista([Lista('frutas', ['banana', 'goiaba']), Lista('esportes', ['futebol', 'basquete'])])
@@ -11,7 +13,7 @@ class Sistema:
 
      def inserir_lista(self):
           nome_lista = input('Informe o nome da lista de palavras: ')
-          lista_palavras = [str(x) for x in input('Informe as palavras que serão adicionadas à lista: ').split()]
+          lista_palavras = [str(x) for x in input('Informe as palavras que serão adicionadas à lista (em uma unica linha): ').split()]
           nova_lista = Lista(nome_lista, lista_palavras)
           self._controlador.inserir(nova_lista)
     
@@ -30,21 +32,27 @@ class Sistema:
                print(_lista)
      
      def consultar_palavras(self):
-          nome = input('Informe o nome da lista: ')
+          nome = self.verifica_existencia_lista()
+          os.system("cls")
           return self._controlador.consultar_palavras(nome)
      
      def verifica_existencia_lista(self):
           nome_valido = ''
           while nome_valido not in self._controlador.consultar_nomes():
-               print(self._controlador.consultar_nomes())
+               print("Tipo de listas disponíveis:")
+               print(*self._controlador.consultar_nomes())
+               print()
                nome_valido = input('Informe o nome da lista: ')
                if nome_valido not in self._controlador.consultar_nomes():
                     print('Erro! Não há nehuma lista com esse nome.')
           return nome_valido
+        
 
      def run(self):
 
           while self._running:
+
+               os.system('cls')
                
                opcao = 0
 
@@ -62,7 +70,10 @@ class Sistema:
                               print()
                
                if opcao == 1:
-                    print('.')
+                    print('------Definindo o tipo da lista------------')
+                    jogo = Jogo(self.consultar_palavras())
+
+                               
                
                elif opcao == 2:
                     self.inserir_lista()
@@ -80,6 +91,7 @@ class Sistema:
                     print('Fim do programa')
                     self._running = False
                     
+               input('Enter para continuar')
                  
         
 Sistema().run()
