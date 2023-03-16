@@ -1,5 +1,5 @@
-from ControladorLista import ControladorLista
-from Lista import Lista
+from controlador_lista import ControladorLista
+from lista import Lista
 class Sistema:
      def __init__(self):
           self._controlador = ControladorLista([Lista('frutas', ['banana', 'goiaba']), Lista('esportes', ['futebol', 'basquete'])])
@@ -16,13 +16,13 @@ class Sistema:
           self._controlador.inserir(nova_lista)
     
      def atualizar_lista(self):
-          nome = input('Informe o nome da lista a ser atualizada: ')
+          nome = self.verifica_existencia_lista()
           novo_nome = input('Informe o novo nome: ')
           nova_lista = [str(x) for x in input('Informe a nova lista de palavras: ').split()]
           self._controlador.atualizar(nome, novo_nome, nova_lista)
 
      def deletar_lista(self):
-          nome = input('Informe o nome da lista a ser deletada: ')
+          nome = self.verifica_existencia_lista()
           self._controlador.deletar(nome)
     
      def consultar_listas(self):
@@ -32,6 +32,15 @@ class Sistema:
      def consultar_palavras(self):
           nome = input('Informe o nome da lista: ')
           return self._controlador.consultar_palavras(nome)
+     
+     def verifica_existencia_lista(self):
+          nome_valido = ''
+          while nome_valido not in self._controlador.consultar_nomes():
+               print(self._controlador.consultar_nomes())
+               nome_valido = input('Informe o nome da lista: ')
+               if nome_valido not in self._controlador.consultar_nomes():
+                    print('Erro! Não há nehuma lista com esse nome.')
+          return nome_valido
 
      def run(self):
 

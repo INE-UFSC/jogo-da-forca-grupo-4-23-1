@@ -1,4 +1,3 @@
-from Lista import Lista
 class ControladorLista:
 
     def __init__(self, listas = []):
@@ -22,6 +21,12 @@ class ControladorLista:
             if _lista.get_nome() == nome:
                 lista_palavras =_lista.get_palavras()
                 return lista_palavras
+            
+    def consultar_nomes(self):
+        lista_nomes = []
+        for _lista in self._listas:
+            lista_nomes.append(_lista.get_nome())
+        return lista_nomes
     
     def deletar(self, nome):
         for _lista in self._listas:
