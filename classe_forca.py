@@ -17,7 +17,7 @@ class Forca:
 
     def input_chute(self):
         while True:
-            chute = input("Digite o chute: ").strip()
+            chute = input("Digite o chute: ").strip().lower()
             try:
                 chute = int(chute)
             except:

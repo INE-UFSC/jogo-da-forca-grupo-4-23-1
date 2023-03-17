@@ -63,11 +63,19 @@ class Sistema:
                print('5 - Consultar listas de palavras')
                print('6 - Sair do programa')
 
-               while opcao < 1 or opcao > 6:
-                         opcao = int(input("\nInforme uma opcao: "))
-                         if opcao < 1 or opcao > 6:
+               while True:
+                         try:
+                              opcao = int(input("\nInforme uma opcao: "))
+                         except:
                               print('Erro! Informe uma opcao valida')
-                              print()
+
+                         else:
+                              if opcao < 1 or opcao > 6:
+                                   print('Erro! Informe uma opcao valida')
+                                   print()
+                              else:
+                                  break
+               os.system('cls')
                
                if opcao == 1:
                     print('------Definindo o tipo da lista------------')
